@@ -37,5 +37,5 @@ class MapPoints extends Component {
 }
 
 export default GoogleApiWrapper({
-    apiKey: ("AIzaSyCX7gMWiZpir-bA3CUpPIxYfwh-I-6LQIc")
+    apiKey: ("")
 })(MapPoints)
