@@ -1,26 +1,49 @@
 import React, {useState} from "react";
 import {Container, Form, Button, Col, Row} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import {connect} from 'react-redux'
+import axios from "axios";
 
-export const SignIn = () => {
+const SignIn = (props) => {
+
+    console.log(props);
 
     const [signin, setsignin] = useState({
-        login: '',
+        email: '',
         password: ''
     })
     const [signup, setsignup] = useState({
-        login: '',
-        password: ''
+        email: '',
+        password: '',
+        name: '',
+        age: 0
     })
 
     const manageSignIn = () => {
         //todo api call
+        props.setCred(signin.email,signin.password);
+        axios.post(`http://localhost:3001/catalog/users/login`,signin)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
 
     const manageSignUp = () => {
         //todo api call
+        axios.post(`http://localhost:3001/catalog/users/create`,signup)
+            .then(res => {
+                console.log(res);
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }
-
+/*    setTimeout(() => {
+        props.history.push('/')
+    },10000);*/
     return (
         <Container>
             <Row>
@@ -30,7 +53,7 @@ export const SignIn = () => {
                             <h3>Masz już konto? Zaloguj się</h3>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>adres E-mail</Form.Label>
-                                <Form.Control type="email" placeholder="email" value={signin.login} onChange={(e) => {setsignin({...signin, login: e.target.value})}}/>
+                                <Form.Control type="email" placeholder="email" value={signin.email} onChange={(e) => {setsignin({...signin, email: e.target.value})}}/>
                             </Form.Group>
                             <Form.Group controlId="formBasicPassword">
                                 <Form.Label>Password</Form.Label>
@@ -49,11 +72,19 @@ export const SignIn = () => {
                             <h3>Rejestracja</h3>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>adres E-mail</Form.Label>
-                                <Form.Control type="email" placeholder="email" value={signup.login} onChange={(e) => {setsignup({...signup, login: e.target.value})}}/>
+                                <Form.Control type="email" placeholder="email" value={signup.email} onChange={(e) => {setsignup({...signup, email: e.target.value})}}/>
                             </Form.Group>
                             <Form.Group controlId="formBasicPassword">
                                 <Form.Label>Password</Form.Label>
                                 <Form.Control type="password" placeholder="hasło" value={signup.password} onChange={(e) => {setsignup({...signup, password: e.target.value})}}/>
+                            </Form.Group>
+                            <Form.Group controlId="formBasicName">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control placeholder="imie" value={signup.name} onChange={(e) => {setsignup({...signup, name: e.target.value})}}/>
+                            </Form.Group>
+                            <Form.Group controlId="formBasicAge">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control placeholder="wiek" value={signup.age} onChange={(e) => {setsignup({...signup, age: e.target.value})}}/>
                             </Form.Group>
                             <Link to="/user"><Button variant="primary" type="submit" onClick={manageSignUp}>
                                 Potwierdź
@@ -67,3 +98,17 @@ export const SignIn = () => {
         </Container>
     )
 }
+
+const mapStateToProps = (state) => {
+    return {
+        userCred: state.userCred
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setCred: (email,password) => {dispatch({type: 'SIGNIN', email: email, password: password})}
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(SignIn)

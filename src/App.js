@@ -9,13 +9,13 @@ import {
   Link
 } from "react-router-dom";
 import {Navi} from "./containers/Navi";
-import {SignIn} from "./pages/SignIn";
+import SignIn from "./pages/SignIn";
 import {UserPanel} from "./pages/UserPanel";
 import {Offers} from "./pages/Offers";
 import {Opinions} from "./pages/Opinions";
 import {Contact} from "./pages/Contact";
 import {FooterBar} from "./containers/Footer";
-import {Demo} from "./pages/Demo";
+import Demo from "./pages/Demo";
 
 function App() {
   return (
@@ -23,26 +23,19 @@ function App() {
     <Navi />
     <div>
       <Switch>
-        <Route path="/signin">
-          <SignIn />
+        <Route path="/signin" component={SignIn}>
         </Route>
-        <Route path="/user">
-          <UserPanel />
+        <Route path="/user" component={UserPanel}>
         </Route>
-        <Route path="/offers">
-          <Offers />
+        <Route path="/offers" component={Offers}>
         </Route>
-        <Route path="/opinions">
-          <Opinions />
+        <Route path="/opinions" component={Opinions}>
         </Route>
-        <Route path="/contact">
-          <Contact />
+        <Route path="/contact" component={Contact}>
         </Route>
-        <Route path="/demo">
-          <Demo />
+        <Route path="/demo" component={Demo}>
         </Route>
-        <Route path="/">
-          <Main />
+        <Route exact path="/" component={Main}>
         </Route>
       </Switch>
     </div>

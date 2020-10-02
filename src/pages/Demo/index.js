@@ -1,10 +1,21 @@
 import React, {useState} from "react";
-import {Container, Form, Button, FormControl, Col} from "react-bootstrap";
+import {Container} from "react-bootstrap";
+import {connect} from 'react-redux'
 
-export const Demo = () => {
+const Demo = (props) => {
+    const cred = props.userCred;
+    console.log(props)
     return (
         <Container>
-            <p>demo</p>
+            <p>{cred.email}</p>
         </Container>
     )
 }
+
+const mapStateToProps = (state) => {
+    return {
+        userCred: state.userCred
+    }
+}
+
+export default connect(mapStateToProps)(Demo)

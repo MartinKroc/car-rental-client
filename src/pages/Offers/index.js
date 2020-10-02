@@ -43,7 +43,7 @@ export const Offers = () => {
                     </Col>
                 </Row>
                 <Row className="mt-5">
-                    {cars.map((car) =>
+                    {cars.length?(cars.map((car) =>
                         <SingleCar
                             key={car.id}
                             name={car.name}
@@ -52,7 +52,7 @@ export const Offers = () => {
                             seats={car.seats}
                             photo={car.photo}
                         />
-                    )}
+                    )):(<h1>nie ma nic</h1>)}
                 </Row>
             </div>
         </Container>
