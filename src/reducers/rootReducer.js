@@ -1,7 +1,7 @@
 const initState = {
     userCred: {
-        email: 'dupa',
-        password: 'dupka'
+        email: 'test',
+        password: 'test'
     }
 }
 
